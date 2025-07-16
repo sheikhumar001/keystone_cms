@@ -14,16 +14,35 @@ import { lists } from './schema'
 // when you write your list-level access control functions, as they typically rely on session data
 import { withAuth, session } from './auth'
 
+// export default withAuth(
+//   config({
+//     db: {
+//       // we're using sqlite for the fastest startup experience
+//       //   for more information on what database might be appropriate for you
+//       //   see https://keystonejs.com/docs/guides/choosing-a-database#title
+//       provider: 'sqlite',
+//       url: 'file:./keystone.db',
+//     },
+//     lists,
+//     session,
+//   })
+// )
+import dotenv from 'dotenv';
+dotenv.config();
 export default withAuth(
+  
   config({
     db: {
-      // we're using sqlite for the fastest startup experience
-      //   for more information on what database might be appropriate for you
-      //   see https://keystonejs.com/docs/guides/choosing-a-database#title
-      provider: 'sqlite',
-      url: 'file:./keystone.db',
+      provider: 'postgresql',
+      url: process.env.DATABASE_URL!,
     },
     lists,
     session,
+    server: {
+      cors: { 
+        origin: [process.env.FRONTEND_URL || 'http://localhost:3000'],
+        credentials: true 
+      },
+    },
   })
 )

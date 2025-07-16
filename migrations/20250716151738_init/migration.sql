@@ -13,7 +13,7 @@ CREATE TABLE "User" (
 CREATE TABLE "Post" (
     "id" TEXT NOT NULL,
     "title" TEXT NOT NULL DEFAULT '',
-    "content" TEXT NOT NULL DEFAULT '[{"type":"paragraph","children":[{"text":""}]}]',
+    "content" JSONB NOT NULL DEFAULT '[{"type":"paragraph","children":[{"text":""}]}]',
     "author" TEXT,
 
     CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
